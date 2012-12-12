@@ -23,8 +23,8 @@ namespace OpenIDRelyingParty
 
             routes.MapRoute(
                 "Default", // Route name
-                "{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "", action = "", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }
