@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "OpenID Identity Provider Page";
+}
+
+<style type="text/css">
+    a img { border: none; }
+    h3 { font-weight: normal; }
+    #google { margin: 0 15px; }
+    #yahoo { margin: 10px 15px; }
+    #myopenid { margin: 10px 15px; }
+    #identityProviders { margin: 30px 10px; }
+    #openid_identifier { width: 300px; }
+</style>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p class="error">
+        @ViewBag.ErrorMessage
+    </p>
+}
+
+<h3>
+    Click on an identity provider to automatically fill in the OpenID Provider URL address. Or you can just provide your own!
+</h3>
+
+<div id="identityProviders">
+    <a href="" id="google">
+        <img src="/Content/openid/640px-Google_logo.png" alt="Google" height="80" width="240"/>
+    </a>
+    <a href="" id="yahoo">
+        <img src="/Content/openid/Yahoo_Y.png" alt="Yahoo" height="80" width="140"/>
+    </a>
+    <a href="" id="myopenid">
+        <img src="/Content/openid/myopenid-logo.png" alt="myOpenID" height="80" width="280"/>
+    </a>
+</div>
+
+<form action="/User/Authenticate?returnUrl=@this.Request.QueryString["returnUrl"]" method="post" id="openid_form">
+    <label for="openid_identifier">OpenID Provider URL:</label>
+    <input type="text" id="openid_identifier" name="openid_identifier"/>
+    <input id="openid_submit" type="submit" value="Sign In"/>
+</form>
+
+@section JavaScriptExecution
+{
+    <script type="text/javascript">
+        $('#identityProviders a').click(function () {
+            var id = $(this).attr('id');
+            if (id == 'google') {
+                $('#openid_identifier').val("https://www.google.com/accounts/o8/id");
+            } else if (id == 'yahoo') {
+                $('#openid_identifier').val("https://me.yahoo.com/");
+            } else if (id == 'myopenid') {
+                $('#openid_identifier').val("https://myopenid.com/");
+            }
+            return false;
+        });
+    </script>
+}

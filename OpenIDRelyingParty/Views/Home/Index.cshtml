@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@if (!this.Request.IsAuthenticated)
+{
+    <p>
+        <a href="/User/Index">Click here to authenticate using an OpenID identity provider</a>
+    </p>
+}
+
+<p>
+    <a href="/Home/Secured">Click here to go to the Secured OpenID User Information page</a>
+</p>

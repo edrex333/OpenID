@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Secured OpenID User Information Page";
+    var providerURL = Session["ProviderURL"] as string;
+    var claimedIdentifier = Session["ClaimedIdentifier"] as string;
+    var fetchResponse = Session["FetchResponse"] as FetchResponse;
+}
+
+<h3>
+    OpenID User Information Page
+    <br/>
+</h3>
+
+@if (providerURL != null)
+{
+    <div id="providerURL">
+        <span>Provider URL: </span>
+        <span>@providerURL</span>
+    </div>
+}
+
+@if (claimedIdentifier != null)
+{
+    <div id="claimedIdentifier">
+        <span>Claimed Identifier: </span>
+        <span>@claimedIdentifier</span>
+    </div>
+}
+
+@if (fetchResponse != null)
+{
+    if (fetchResponse.Attributes.Contains(WellKnownAttributes.Name.FullName))
+    {
+        var fullName = fetchResponse.Attributes[WellKnownAttributes.Name.FullName].Values.First();
+        <div id="fullName">
+            <span>Full Name: </span>
+            <span>@fullName</span>
+        </div>
+    }
+
+    if (fetchResponse.Attributes.Contains(WellKnownAttributes.Contact.Email))
+    {
+        var emailAddress = fetchResponse.Attributes[WellKnownAttributes.Contact.Email].Values.First();
+        <div id="emailAddress">
+            <span>Email Address: </span>
+            <span>@emailAddress</span>
+        </div>
+    }
+}
